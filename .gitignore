@@ -1,0 +1,12 @@
+# Node and build
+node_modules/
+server/node_modules/
+dist/
+.env
+.env.*
+.vscode/
+.DS_Store
+npm-debug.log
+package-lock.json
+# Videos and large media (optional - keep if you want them in repo)
+# public/videos/

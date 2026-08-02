@@ -1,0 +1,23 @@
+Aditya Epoch / CampusX
+
+Live Demo:
+- Frontend: https://campus-x-lemon.vercel.app
+- Backend API: https://campusx-backend-production-c272.up.railway.app
+
+Summary:
+Aditya Epoch is a modern college website with online admissions, contact form, testimonials, and admin submission review.
+
+Key Features:
+- Responsive mobile-friendly website
+- Courses and placements information
+- Online admission form and backend storage
+- Contact form with backend messaging
+- Admin login restricted for authorized users only
+- Testimonials video gallery
+
+Notes:
+- The admin page is for authorized staff only.
+- Visitors who are not authorized should not attempt to log in.
+- New pages now open from the top of the page.
+
+Share this link with your team and HOD: https://campus-x-lemon.vercel.app

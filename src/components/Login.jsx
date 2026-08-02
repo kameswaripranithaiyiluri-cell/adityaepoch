@@ -37,7 +37,10 @@ export default function Login({ onLogin }) {
   return (
     <div className="min-h-screen flex items-center justify-center bg-white dark:bg-black px-6 pt-32">
       <div className="w-full max-w-md bg-slate-100 dark:bg-gray-900 p-10 rounded-3xl border border-slate-200/60 dark:border-cyan-500/20">
-        <h2 className="text-3xl font-bold text-cyan-400 mb-6 text-center">Admin Login</h2>
+        <h2 className="text-3xl font-bold text-cyan-400 mb-4 text-center">Admin Login</h2>
+        <p className="text-sm sm:text-base text-slate-600 dark:text-gray-400 mb-6 text-center">
+          This admin page is restricted to authorized staff only. If you are not an administrator, please do not attempt to access the admin dashboard.
+        </p>
 
         {error && (
           <div className="bg-red-100 dark:bg-red-900/30 border border-red-400 dark:border-red-500 rounded-xl p-4 mb-6 text-center">

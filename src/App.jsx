@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useLayoutEffect } from 'react';
 import AdminPanel from './components/AdminPanel';
 import Login from './components/Login';
 import { Routes, Route, Link, useNavigate, useLocation } from 'react-router-dom';
@@ -13,9 +13,16 @@ import AptitudeLearning from './pages/AptitudeLearning';
 /* Scroll to top on every route change */
 function ScrollToTop() {
   const { pathname } = useLocation();
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'instant' });
+
+  useLayoutEffect(() => {
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+    window.scrollTo(0, 0);
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
   }, [pathname]);
+
   return null;
 }
 

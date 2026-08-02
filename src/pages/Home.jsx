@@ -171,7 +171,7 @@ export default function Home() {
                 <ImageWithFallback
                   src={vicePrincipalImg}
                   fallback={vicePrincipalFallback}
-                  alt="Vice Principal of Aditya Epoch"
+                  alt="Vice Principal of Aditya Epoch (updated)"
                   className="rounded-2xl shadow-xl w-72 h-72 object-cover border-4 border-cyan-400/30"
                 />
               </div>

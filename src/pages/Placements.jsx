@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { FaGoogle, FaAmazon, FaMicrosoft, FaBuilding, FaGripLines, FaAward, FaHandshake } from 'react-icons/fa';
 import {
   SiTcs,
@@ -9,34 +10,63 @@ import {
 } from 'react-icons/si';
 
 const companies = [
-  { name: 'Google', icon: FaGoogle, color: '#4285F4' },
-  { name: 'Amazon', icon: FaAmazon, color: '#FF9900' },
-  { name: 'Microsoft', icon: FaMicrosoft, color: '#00A4EF' },
-  { name: 'TCS', icon: SiTcs, color: '#1C3C6A' },
-  { name: 'Infosys', icon: SiInfosys, color: '#007CC3' },
-  { name: 'Wipro', icon: SiWipro, color: '#341C75' },
-  { name: 'IBM', icon: FaBuilding, color: '#052FAD' },
-  { name: 'Deloitte', icon: FaBuilding, color: '#1A8B4C' },
-  { name: 'Accenture', icon: SiAccenture, color: '#A100FF' },
-  { name: 'Cognizant', icon: FaBuilding, color: '#004C97' },
-  { name: 'Capgemini', icon: FaBuilding, color: '#00C7B1' },
-  { name: 'Tech Mahindra', icon: FaBuilding, color: '#3B0086' },
+  {
+    name: 'Google',
+    icon: FaGoogle,
+    color: '#4285F4',
+    founded: '1998',
+    sector: 'Technology / Cloud & AI',
+    work: 'Software engineering, cloud infrastructure, AI solutions, product development',
+    roles: 'Software Engineer, Data Analyst, Product Engineer',
+    description: 'Google is a global technology leader focused on building products and platforms that help people access information, work faster, and innovate with AI and cloud technologies.'
+  },
+  {
+    name: 'Amazon',
+    icon: FaAmazon,
+    color: '#FF9900',
+    founded: '1994',
+    sector: 'E-commerce / Cloud',
+    work: 'Cloud services, logistics, application engineering, customer technology',
+    roles: 'Operations Engineer, Software Developer, Cloud Support Engineer',
+    description: 'Amazon is one of the world’s largest technology and logistics companies, offering global cloud, retail, and digital services across multiple business domains.'
+  },
+  {
+    name: 'Microsoft',
+    icon: FaMicrosoft,
+    color: '#00A4EF',
+    founded: '1975',
+    sector: 'Software / Cloud',
+    work: 'Enterprise software, cloud platforms, AI, cybersecurity, and business solutions',
+    roles: 'Software Engineer, Analyst, Cloud Engineer',
+    description: 'Microsoft empowers businesses and individuals with cloud solutions, productivity tools, and AI-driven platforms for digital transformation.'
+  },
+  { name: 'TCS', icon: SiTcs, color: '#1C3C6A', founded: '1968', sector: 'IT Services', work: 'IT consulting, software delivery, enterprise services', roles: 'Developer, Analyst, Consultant', description: 'TCS is a global IT services and consulting company focused on digital transformation and enterprise technology solutions.' },
+  { name: 'Infosys', icon: SiInfosys, color: '#007CC3', founded: '1981', sector: 'IT Services', work: 'Software consulting, digital engineering, automation', roles: 'Systems Engineer, Associate Consultant', description: 'Infosys helps businesses modernize through digital platforms, software engineering, product innovation, and process automation.' },
+  { name: 'Wipro', icon: SiWipro, color: '#341C75', founded: '1945', sector: 'IT Services', work: 'Application development, digital transformation, cybersecurity', roles: 'Software Engineer, Analyst, Infrastructure Engineer', description: 'Wipro delivers digital and consulting services, building next-generation technology products and enterprise solutions.' },
+  { name: 'IBM', icon: FaBuilding, color: '#052FAD', founded: '1911', sector: 'Technology / Consulting', work: 'Cloud computing, AI, enterprise systems, cybersecurity', roles: 'Application Developer, Data Analyst, Cloud Specialist', description: 'IBM is a technology and consulting company known for enterprise systems, AI services, cybersecurity, and mainframe modernization.' },
+  { name: 'Deloitte', icon: FaBuilding, color: '#1A8B4C', founded: '1845', sector: 'Consulting / Audit', work: 'Business consulting, digital transformation, finance and risk advisory', roles: 'Analyst, Consultant, Business Technology Analyst', description: 'Deloitte helps companies improve operations, strategy, technology, and business performance through consulting and advisory services.' },
+  { name: 'Accenture', icon: SiAccenture, color: '#A100FF', founded: '1989', sector: 'Consulting / Digital', work: 'Digital transformation, cloud services, automation, AI consulting', roles: 'Consultant, Application Engineer, Cloud Analyst', description: 'Accenture works with businesses across industries to implement digital transformation, cloud strategy, analytics, and emerging technologies.' },
+  { name: 'Cognizant', icon: FaBuilding, color: '#004C97', founded: '1994', sector: 'IT Services', work: 'Digital engineering, software delivery, customer experience solutions', roles: 'Engineer, Analyst, Associate Developer', description: 'Cognizant supports businesses with technology consulting, software engineering, and digital transformation services.' },
+  { name: 'Capgemini', icon: FaBuilding, color: '#00C7B1', founded: '1967', sector: 'Technology / Consulting', work: 'Enterprise transformation, cloud adoption, digital product development', roles: 'Analyst, Developer, Consultant', description: 'Capgemini helps organizations accelerate transformation with cloud platforms, data, AI, software engineering, and digital services.' },
+  { name: 'Tech Mahindra', icon: FaBuilding, color: '#3B0086', founded: '1986', sector: 'IT / Telecom', work: 'Digital transformation, telecom solutions, cloud services', roles: 'Software Engineer, Support Engineer, Technical Analyst', description: 'Tech Mahindra partners with global enterprises to build digital business ecosystems, telecom solutions, and IT modernization programs.' },
 ];
 
 const mouCompanies = [
-  { name: 'AWS', icon: FaBuilding, color: '#FF9900' },
-  { name: 'Oracle', icon: FaBuilding, color: '#F80000' },
-  { name: 'Pearson Mepro', icon: FaBuilding, color: '#00A3E0' },
-  { name: 'Red Hat', icon: SiRedhat, color: '#EE0000' },
-  { name: 'Cisco', icon: SiCisco, color: '#1BA0D7' },
-  { name: 'Kimo', icon: FaBuilding, color: '#6C2BD9' },
-  { name: 'Stratadigm', icon: FaBuilding, color: '#E44D26' },
-  { name: 'Babah Finserv', icon: FaBuilding, color: '#0D9488' },
-  { name: 'Criativo', icon: FaBuilding, color: '#F59E0B' },
-  { name: 'WNS', icon: FaBuilding, color: '#3B82F6' },
+  { name: 'AWS', icon: FaBuilding, color: '#FF9900', founded: '2006', sector: 'Cloud Computing', work: 'Cloud infrastructure, data services, machine learning, DevOps', roles: 'Cloud Engineer, Solutions Architect, Developer', description: 'AWS is a global cloud platform that enables companies to build secure, scalable, and high-performance applications using cloud and AI services.' },
+  { name: 'Oracle', icon: FaBuilding, color: '#F80000', founded: '1977', sector: 'Database / Enterprise Software', work: 'Database systems, enterprise software, cloud ERP and analytics', roles: 'Database Developer, Analyst, Cloud Consultant', description: 'Oracle provides enterprise data platforms and business software used by organizations across finance, logistics, and technology sectors.' },
+  { name: 'Pearson Mepro', icon: FaBuilding, color: '#00A3E0', founded: '2013', sector: 'Learning / Assessment', work: 'Skill development assessments, education technology and learner analytics', roles: 'Learning Analyst, Content Support, EdTech Associate', description: 'Pearson Mepro focuses on learning platforms and assessment tools that improve skill development and academic performance.' },
+  { name: 'Red Hat', icon: SiRedhat, color: '#EE0000', founded: '1993', sector: 'Open Source / Enterprise Linux', work: 'Open source platforms, enterprise Linux, automation and cloud tools', roles: 'System Engineer, DevOps Associate, Linux Administrator', description: 'Red Hat helps organizations build enterprise-grade systems using open-source infrastructure, automation, and cloud-native technologies.' },
+  { name: 'Cisco', icon: SiCisco, color: '#1BA0D7', founded: '1984', sector: 'Networking / Security', work: 'Networking, cybersecurity, automation, enterprise connectivity', roles: 'Network Engineer, Security Analyst, Systems Engineer', description: 'Cisco develops networking and security solutions that connect businesses, organizations, and digital services securely across the world.' },
+  { name: 'Kimo', icon: FaBuilding, color: '#6C2BD9', founded: '2020', sector: 'Digital Services', work: 'Business technology, digital transformation, customer solutions', roles: 'Business Analyst, Digital Associate, Support Engineer', description: 'Kimo supports digital transformation initiatives through business technology services and customer-focused digital solutions.' },
+  { name: 'Stratadigm', icon: FaBuilding, color: '#E44D26', founded: '2015', sector: 'Business Consulting', work: 'Strategy consulting, process improvement, digital business growth', roles: 'Business Analyst, Associate Consultant, Strategy Support', description: 'Stratadigm helps organizations improve performance through strategy, business process design, and digital adoption.' },
+  { name: 'Babaj Finserv', icon: FaBuilding, color: '#0D9488', founded: '2005', sector: 'Financial Services', work: 'Finance, customer support, digital financial services', roles: 'Financial Analyst, Customer Support, Operations Associate', description: 'Babaji Finserv operates in financial services and supports customers with digital and traditional financial product experiences.' },
+  { name: 'Criativo', icon: FaBuilding, color: '#F59E0B', founded: '2018', sector: 'Creative / Digital', work: 'Brand design, digital content, marketing and creative technology', roles: 'Content Designer, Digital Marketing Associate, Creative Analyst', description: 'Criativo helps brands grow through creative strategies, digital storytelling, and customized marketing experiences.' },
+  { name: 'WNS', icon: FaBuilding, color: '#3B82F6', founded: '1996', sector: 'Business Process Services', work: 'Customer support, analytics, service operations, process outsourcing', roles: 'Operations Analyst, Customer Support, Process Associate', description: 'WNS helps enterprises improve customer service and business operations through technology and process-driven solutions.' },
 ];
 
 export default function Placements() {
+  const [selectedCompany, setSelectedCompany] = useState(null);
+
   const handleScrollToRecruiters = () => {
     const recruitersSection = document.getElementById('recruiters-section');
     if (recruitersSection) {
@@ -154,7 +184,7 @@ export default function Placements() {
               { stat: '98%', label: 'Placement Rate', icon: '🎯' },
               { stat: '120+', label: 'Registered Companies', icon: '🏢' },
               { stat: '10K+', label: 'Students Placed', icon: '🎓' },
-              { stat: '8 LPA', label: 'Highest Package', icon: '💰' },
+              { stat: '12 LPA', label: 'Highest Package', icon: '💰' },
             ].map((item, i) => (
               <div
                 key={i}
@@ -170,6 +200,47 @@ export default function Placements() {
           </div>
         </div>
       </section>
+
+      {selectedCompany && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4">
+          <div className="w-full max-w-2xl rounded-3xl border border-slate-700 bg-slate-900 p-6 shadow-2xl">
+            <div className="flex items-start justify-between gap-4">
+              <div className="flex items-center gap-4">
+                <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-slate-800 p-3" style={{ boxShadow: `0 0 0 1px ${selectedCompany.color}50` }}>
+                  <selectedCompany.icon className="h-full w-full" style={{ color: selectedCompany.color }} />
+                </div>
+                <div>
+                  <h3 className="text-2xl font-bold text-white">{selectedCompany.name}</h3>
+                  <p className="text-sm text-cyan-300">{selectedCompany.sector}</p>
+                </div>
+              </div>
+              <button
+                onClick={() => setSelectedCompany(null)}
+                className="rounded-full border border-slate-600 px-3 py-1 text-sm text-slate-200 hover:border-cyan-400 hover:text-cyan-300"
+              >
+                Close
+              </button>
+            </div>
+
+            <p className="mt-6 text-slate-300 leading-7">{selectedCompany.description}</p>
+
+            <div className="mt-6 grid gap-4 md:grid-cols-3">
+              <div className="rounded-2xl border border-slate-700 bg-slate-800 p-4">
+                <p className="text-xs uppercase tracking-[0.2em] text-slate-400">Founded</p>
+                <p className="mt-2 text-lg font-semibold text-white">{selectedCompany.founded}</p>
+              </div>
+              <div className="rounded-2xl border border-slate-700 bg-slate-800 p-4">
+                <p className="text-xs uppercase tracking-[0.2em] text-slate-400">Work</p>
+                <p className="mt-2 text-sm font-medium text-white">{selectedCompany.work}</p>
+              </div>
+              <div className="rounded-2xl border border-slate-700 bg-slate-800 p-4">
+                <p className="text-xs uppercase tracking-[0.2em] text-slate-400">Roles</p>
+                <p className="mt-2 text-sm font-medium text-white">{selectedCompany.roles}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* MOU WITH INDUSTRY LEADERS */}
       <section className="relative py-24 px-6 bg-white dark:bg-gray-950 overflow-hidden">
@@ -195,9 +266,11 @@ export default function Placements() {
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
             {mouCompanies.map((company, i) => (
-              <div
+              <button
                 key={i}
-                className="group relative bg-gradient-to-br from-slate-50 to-white dark:from-gray-900 dark:to-black p-6 rounded-2xl border border-slate-200/60 dark:border-cyan-500/20 text-center hover:-translate-y-3 hover:shadow-xl hover:shadow-cyan-400/10 transition-all duration-300 overflow-hidden"
+                type="button"
+                onClick={() => setSelectedCompany(company)}
+                className="group relative bg-gradient-to-br from-slate-50 to-white dark:from-gray-900 dark:to-black p-6 rounded-2xl border border-slate-200/60 dark:border-cyan-500/20 text-center hover:-translate-y-3 hover:shadow-xl hover:shadow-cyan-400/10 transition-all duration-300 overflow-hidden cursor-pointer"
               >
                 {/* Hover glow effect */}
                 <div
@@ -238,7 +311,7 @@ export default function Placements() {
                   className="absolute bottom-0 left-0 right-0 h-0.5 scale-x-0 group-hover:scale-x-100 transition-transform duration-300"
                   style={{ background: company.color }}
                 />
-              </div>
+              </button>
             ))}
           </div>
 
@@ -274,9 +347,11 @@ export default function Placements() {
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {companies.map((company, i) => (
-              <div
+              <button
                 key={i}
-                className="group relative bg-white dark:bg-black p-6 rounded-2xl border border-slate-200/60 dark:border-cyan-500/20 text-center hover:-translate-y-3 hover:shadow-xl hover:shadow-cyan-400/10 transition-all duration-300 overflow-hidden"
+                type="button"
+                onClick={() => setSelectedCompany(company)}
+                className="group relative bg-white dark:bg-black p-6 rounded-2xl border border-slate-200/60 dark:border-cyan-500/20 text-center hover:-translate-y-3 hover:shadow-xl hover:shadow-cyan-400/10 transition-all duration-300 overflow-hidden cursor-pointer"
               >
                 {/* Hover glow effect */}
                 <div
@@ -308,7 +383,7 @@ export default function Placements() {
                   className="absolute bottom-0 left-0 right-0 h-0.5 scale-x-0 group-hover:scale-x-100 transition-transform duration-300"
                   style={{ background: company.color }}
                 />
-              </div>
+              </button>
             ))}
           </div>
 

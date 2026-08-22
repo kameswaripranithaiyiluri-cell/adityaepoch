@@ -1,30 +1,27 @@
 export default function Testimonials() {
-  // YOUTUBE VIDEO DATA - Using embed URLs for reliable video playback
+  // LOCAL VIDEO DATA - Store video files in public/videos/ folder
   // To add videos: 
-  // 1. Get the YouTube video ID from the URL
-  // 2. Add an object to this array with the videoId
-  
-  // You can place local MP4 files in `public/videos` (recommended) and reference them
-  // using the `localSrc` property below. If `localSrc` is not provided, the component
-  // will fall back to embedding a YouTube video via `videoId`.
+  // 1. Place your video files in: public/videos/
+  // 2. Add an object to this array with the video filename
+
   const videos = [
     {
-      // Local file example (served from public/videos)
-      localSrc: '/videos/father-proud-moment.mp4',
+      videoFile: '/videos/father-proud-moment.mp4',
       title: 'Father Proud Moment - BSc AI',
       category: 'Parent Testimonial',
       student: 'G. Divya Priya — BSc AI',
       description: 'A proud father celebrates his daughter G. Divya Priya from the BSc AI group and shares his happiness over her academic success.',
       message: 'My daughter G. Divya Priya is studying BSc AI and I am very happy with her achievement.',
+      fallbackText: 'This testimonial video will appear here once the MP4 file is added to the public/videos folder.',
     },
     {
-      // Local file example (served from public/videos)
-      localSrc: '/videos/mother-proud-moment.mp4',
+      videoFile: '/videos/mother-proud-moment.mp4',
       title: 'Mother Proud Moment - BSc Data Science',
       category: 'Parent Testimonial',
       student: 'Jahnavi — BSc Data Science',
       description: 'A proud mother shares her joy as Jahnavi begins the BSc Data Science group and celebrates this important milestone.',
       message: 'Jahnavi has joined BSc Data Science and our family is very proud of her.',
+      fallbackText: 'This testimonial video will appear here once the MP4 file is added to the public/videos folder.',
     },
   ];
 
@@ -63,25 +60,27 @@ export default function Testimonials() {
             {videos.map((video, i) => (
               <div key={i} className="bg-white dark:bg-gray-950 rounded-3xl overflow-hidden hover:shadow-lg transition duration-500 border border-slate-200/60 dark:border-cyan-500/20">
                 <div className="relative w-full bg-black rounded-t-3xl overflow-hidden" style={{ paddingBottom: '56.25%' }}>
-                  {video.localSrc ? (
-                    <video
-                      className="absolute top-0 left-0 w-full h-full object-cover"
-                      src={video.localSrc}
-                      controls
-                      playsInline
-                      preload="metadata"
-                      controlsList="nodownload"
-                    />
-                  ) : (
-                    <iframe
-                      className="absolute top-0 left-0 w-full h-full"
-                      src={`https://www.youtube.com/embed/${video.videoId}`}
-                      title={video.title}
-                      frameBorder="0"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                    ></iframe>
-                  )}
+                  <video
+                    className="absolute top-0 left-0 w-full h-full"
+                    controls
+                    playsInline
+                    preload="auto"
+                    muted={false}
+                    controlsList="nodownload"
+                    onError={(e) => {
+                      e.currentTarget.style.display = 'none';
+                      e.currentTarget.parentNode.querySelector('.video-fallback').style.display = 'flex';
+                    }}
+                  >
+                    <source src={encodeURI(video.videoFile)} type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
+                  <div className="video-fallback absolute inset-0 hidden items-center justify-center bg-slate-900/95 text-center px-6">
+                    <div>
+                      <p className="text-cyan-400 font-semibold mb-2">Video preview unavailable</p>
+                      <p className="text-slate-300 text-sm">{video.fallbackText}</p>
+                    </div>
+                  </div>
                 </div>
 
                 <div className="p-6">
@@ -94,7 +93,7 @@ export default function Testimonials() {
                   <p className="text-slate-600 dark:text-gray-400 mb-2 font-semibold">{video.student}</p>
                   {video.description && <p className="text-slate-700 dark:text-gray-300 mb-3">{video.description}</p>}
                   {video.company && <p className="text-slate-500 dark:text-gray-500 text-sm mb-2">Placed at: <span className="font-bold text-cyan-400">{video.company}</span></p>}
-                  {video.message && <p className="text-slate-600 dark:text-gray-400 italic">"{video.message}"</p>}
+                  {video.message && <p className="mt-4 text-slate-600 dark:text-gray-400 italic">"{video.message}"</p>}
                 </div>
               </div>
             ))}
@@ -129,7 +128,7 @@ export default function Testimonials() {
               </div>
 
               <a
-                href="mailto:admissions@adityacollege.edu.in?subject=Student Video Submission - Share My Story"
+                href="mailto:adcrjy@aditya.adc.in?subject=Student Video Submission - Share My Story"
                 className="inline-block bg-cyan-400 text-black px-8 py-4 rounded-full font-bold hover:scale-105 transition"
               >
                 Send Video to College

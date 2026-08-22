@@ -1,25 +1,7 @@
 import { Link } from 'react-router-dom';
 import heroImg from '../assets/campus-image.jpg';
-import principalImg from '../assets/principal.jpg';
-import vicePrincipalImg from '../assets/vice-principal.jpg';
-
-// Fallback images for reliable loading
-const principalFallback = 'https://images.unsplash.com/photo-1571265165232-72b2a3a3b3b3?w=400&h=400&fit=crop&auto=format';
-const vicePrincipalFallback = 'https://images.unsplash.com/photo-1567532231517-3b5a5e5b5b5b?w=400&h=400&fit=crop&auto=format';
-
-function ImageWithFallback({ src, fallback, alt, className, ...props }) {
-  return (
-    <img
-      src={src}
-      alt={alt}
-      className={className}
-      onError={(e) => {
-        e.target.src = fallback;
-      }}
-      {...props}
-    />
-  );
-}
+import principalVisionaryImg from '../assets/principal-visionary.jpeg';
+import vicePrincipalVisionaryImg from '../assets/vice-principal-visionary.jpeg';
 
 export default function Home() {
   const handleScroll = () => {
@@ -76,119 +58,6 @@ export default function Home() {
             >
               Learn More
             </button>
-          </div>
-        </div>
-      </section>
-
-      {/* ABOUT SECTION */}
-      <section id="about-section" className="py-24 bg-gradient-to-br from-slate-50 to-cyan-50/30 dark:from-gray-950 dark:to-cyan-950/20 text-slate-900 dark:text-white px-6">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-5xl md:text-6xl font-bold mb-6" style={{ fontFamily: "'Orbitron', sans-serif" }}>
-              <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 bg-clip-text text-transparent">About</span>{' '}
-              <span className="bg-gradient-to-r from-amber-400 via-orange-500 to-pink-500 bg-clip-text text-transparent">Aditya Epoch</span>
-            </h2>
-            <p className="text-slate-600 dark:text-gray-400 max-w-3xl mx-auto text-lg leading-relaxed">
-              Aditya Epoch represents the digital experience of Aditya Degree College, Rajahmundry. We focus on innovation, practical skills, placements and student success.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-14 items-center">
-          <div className="relative group">
-              <div className="absolute -inset-4 bg-gradient-to-r from-cyan-400 to-amber-400 rounded-3xl blur-lg opacity-20 group-hover:opacity-30 transition-opacity"></div>
-              <img
-                src={heroImg}
-                alt="Aditya Epoch college campus"
-                className="rounded-3xl shadow-2xl w-full h-96 object-cover relative z-10"
-                onError={(e) => {
-                  e.target.src = heroImg;
-                }}
-              />
-            </div>
-
-            <div className="space-y-8">
-              <div className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm p-8 rounded-3xl border border-cyan-400/20 shadow-lg">
-                <h3 className="text-2xl font-bold text-cyan-400 mb-4">Our Mission</h3>
-                <p className="text-slate-700 dark:text-gray-300 leading-relaxed">
-                  To provide quality education that transforms students into industry-ready professionals with strong ethical values and innovative thinking.
-                </p>
-              </div>
-
-              <div className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm p-8 rounded-3xl border border-amber-400/20 shadow-lg">
-                <h3 className="text-2xl font-bold text-amber-400 mb-4">Our Vision</h3>
-                <p className="text-slate-700 dark:text-gray-300 leading-relaxed">
-                  To be a premier educational institution recognized for academic excellence, research innovation, and holistic student development.
-                </p>
-              </div>
-
-              <div className="flex flex-wrap gap-4">
-                <div className="flex-1 min-w-[120px] bg-gradient-to-r from-cyan-400/10 to-blue-500/10 p-6 rounded-2xl border border-cyan-400/30 text-center">
-                  <h4 className="text-3xl font-bold text-cyan-400">10K+</h4>
-                  <p className="text-slate-600 dark:text-gray-400 text-sm mt-1">Students</p>
-                </div>
-                <div className="flex-1 min-w-[120px] bg-gradient-to-r from-amber-400/10 to-orange-500/10 p-6 rounded-2xl border border-amber-400/30 text-center">
-                  <h4 className="text-3xl font-bold text-amber-400">120+</h4>
-                  <p className="text-slate-600 dark:text-gray-400 text-sm mt-1">Recruiters</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* LEADERSHIP SECTION */}
-      <section className="py-24 px-6 bg-white dark:bg-black">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl font-bold text-cyan-400 mb-16 text-center">Our Visionaries</h2>
-          <div className="flex flex-col gap-20">
-            {/* Principal - Image Left, Description Right */}
-            <div className="grid md:grid-cols-2 gap-10 items-center bg-slate-50 dark:bg-gray-950 rounded-3xl p-8 border border-slate-200/60 dark:border-cyan-500/20">
-              <div className="flex justify-center">
-                <ImageWithFallback
-                  src={principalImg}
-                  fallback={principalFallback}
-                  alt="Principal of Aditya Epoch"
-                  className="rounded-2xl shadow-xl w-72 h-72 object-cover border-4 border-cyan-400/30"
-                />
-              </div>
-              <div>
-                <h3 className="text-2xl font-bold text-slate-900 dark:text-white">P. Lakshmi Saroja</h3>
-                <p className="text-cyan-400 text-sm font-medium mt-1">M.Sc, MBA, HDSC</p>
-                <p className="text-slate-500 dark:text-gray-400 text-sm">Principal, Aditya Degree College</p>
-                <p className="text-slate-600 dark:text-gray-300 text-sm leading-6 mt-4">
-                  A distinguished academic leader with over two decades of experience in higher education administration and curriculum development. 
-                  As Principal, she has been instrumental in steering the institution toward academic excellence, fostering a culture of research, 
-                  innovation, and holistic student development. Her visionary leadership has led to strategic industry partnerships, enhanced 
-                  placement outcomes, and the integration of modern pedagogical practices across all departments. She is deeply committed to 
-                  nurturing future-ready graduates who excel both professionally and ethically.
-                </p>
-              </div>
-            </div>
-
-            {/* Vice Principal - Image Left, Description Right */}
-            <div className="grid md:grid-cols-2 gap-10 items-center bg-slate-50 dark:bg-gray-950 rounded-3xl p-8 border border-slate-200/60 dark:border-cyan-500/20">
-              <div className="flex justify-center">
-                <ImageWithFallback
-                  src={vicePrincipalImg}
-                  fallback={vicePrincipalFallback}
-                  alt="Vice Principal of Aditya Epoch (updated)"
-                  className="rounded-2xl shadow-xl w-72 h-72 object-cover border-4 border-cyan-400/30"
-                />
-              </div>
-              <div>
-                <h3 className="text-2xl font-bold text-slate-900 dark:text-white">G. Hema Sundar Rao</h3>
-                <p className="text-cyan-400 text-sm font-medium mt-1">MCA, M.Tech</p>
-                <p className="text-slate-500 dark:text-gray-400 text-sm">Vice Principal, Aditya Degree College</p>
-                <p className="text-slate-600 dark:text-gray-300 text-sm leading-6 mt-4">
-                  A passionate educator and technology-driven administrator with extensive expertise in computer science education and 
-                  academic operations. As Vice Principal, he plays a pivotal role in driving curriculum innovation, spearheading the 
-                  integration of cutting-edge technologies into the learning ecosystem, and mentoring students toward career excellence. 
-                  His leadership in establishing the Abhyas online learning portal and strengthening the college's placement training 
-                  framework has significantly enhanced student employability. He is unwavering in his commitment to academic rigor, 
-                  student mentorship, and institutional growth.
-                </p>
-              </div>
-            </div>
           </div>
         </div>
       </section>
@@ -288,6 +157,41 @@ export default function Home() {
         </div>
       </section>
 
+      {/* VISIONARIES SECTION */}
+      <section className="py-24 px-6 bg-white dark:bg-black text-slate-900 dark:text-white">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-12">
+            <p className="text-sm font-semibold uppercase tracking-[0.4em] text-cyan-500 mb-4">Our Visionaries</p>
+            <h2 className="text-5xl font-bold">Guiding the Future of Aditya Epoch</h2>
+            <p className="text-slate-600 dark:text-gray-300 max-w-3xl mx-auto mt-4">
+              Meet the visionary leaders who are shaping our campus culture, academic excellence, and student success.
+            </p>
+          </div>
+
+          <div className="grid gap-8 lg:grid-cols-2">
+            <div className="rounded-3xl border border-slate-200/70 dark:border-cyan-500/20 bg-slate-50 dark:bg-gray-950 p-10 shadow-xl">
+              <div className="overflow-hidden rounded-3xl mb-8 h-80 bg-slate-200 dark:bg-gray-900 flex items-center justify-center">
+                <img src={principalVisionaryImg} alt="Principal Smt. P. Lakshmi Saroja" className="w-full max-h-full object-contain object-center" />
+              </div>
+              <h3 className="text-3xl font-semibold text-cyan-400 mb-4">Smt. P. Lakshmi Saroja</h3>
+              <p className="text-slate-700 dark:text-gray-300 leading-8">
+                As Principal, Smt. P. Lakshmi Saroja leads with compassion and clarity, nurturing a strong campus culture, academic excellence, and student-centered programs. Her vision ensures every student receives the guidance and support needed to thrive in a modern educational environment.
+              </p>
+            </div>
+
+            <div className="rounded-3xl border border-slate-200/70 dark:border-cyan-500/20 bg-slate-50 dark:bg-gray-950 p-10 shadow-xl">
+              <div className="overflow-hidden rounded-3xl mb-8 h-80 bg-slate-200 dark:bg-gray-900 flex items-center justify-center">
+                <img src={vicePrincipalVisionaryImg} alt="Vice Principal Sri G. Hemasundar Rao" className="w-full max-h-full object-contain object-center" />
+              </div>
+              <h3 className="text-3xl font-semibold text-cyan-400 mb-4">Sri G. Hemasundar Rao</h3>
+              <p className="text-slate-700 dark:text-gray-300 leading-8">
+                As Vice Principal, Sri G. Hemasundar Rao supports strategic management and student engagement with an emphasis on operational excellence. His leadership builds strong systems, mentor-led growth, and a campus environment that empowers every student to achieve their potential.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* CONTACT PREVIEW */}
       <section className="py-24 px-6 bg-white dark:bg-black text-slate-900 dark:text-white">
         <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
@@ -307,7 +211,7 @@ export default function Home() {
               </div>
               <div className="bg-slate-100 dark:bg-gray-950 p-8 rounded-3xl border border-slate-200/60 dark:border-cyan-500/20">
                 <h3 className="text-2xl font-bold text-cyan-400 mb-3">Email</h3>
-                <p className="text-slate-600 dark:text-gray-400">info@adityacollege.edu.in<br />admissions@adityacollege.edu.in</p>
+                <p className="text-slate-600 dark:text-gray-400">adcrjy@aditya.adc.in</p>
               </div>
             </div>
           </div>

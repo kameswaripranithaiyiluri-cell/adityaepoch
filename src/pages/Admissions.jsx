@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import enrollImage from '../assets/enroll-image.jpg';
-
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000';
+import { getApiUrl } from '../lib/api';
 
 export default function Admissions() {
   const [formData, setFormData] = useState({
@@ -11,6 +10,8 @@ export default function Admissions() {
     dob: "",
     course: "",
     qualification: "",
+    tenthMarks: "",
+    interMarks: "",
     address: "",
     city: "",
     state: "",
@@ -22,9 +23,11 @@ export default function Admissions() {
   const [error, setError] = useState("");
 
   const handleChange = (e) => {
+    const { name, value } = e.target;
+    const sanitized = name === 'phone' ? value.replace(/\D/g, '') : value;
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [name]: sanitized,
     });
   };
 
@@ -34,7 +37,7 @@ export default function Admissions() {
     setError("");
 
     try {
-      const response = await fetch(`${BACKEND_URL}/api/admissions`, {
+      const response = await fetch(getApiUrl('/api/admissions'), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -53,6 +56,8 @@ export default function Admissions() {
             dob: "",
             course: "",
             qualification: "",
+            tenthMarks: "",
+            interMarks: "",
             address: "",
             city: "",
             state: "",
@@ -232,7 +237,7 @@ export default function Admissions() {
                   className="w-full p-4 pl-12 rounded-xl border border-cyan-400/30 bg-white/80 dark:bg-gray-800/80 text-slate-900 dark:text-white focus:outline-none focus:border-cyan-400 transition appearance-none"
                 >
                   <option value="">Select Course</option>
-                  <option value="BCA">BCA - Computer Applications</option>
+                  <option value="BCA">BCA - Computer Applications (Software Applications)</option>
                   <option value="BSc">B.Sc - Science</option>
                   <option value="BCom">B.Com - Commerce</option>
                   <option value="BBA">BBA - Business Administration</option>
@@ -254,6 +259,32 @@ export default function Admissions() {
                   <option value="Other">Other</option>
                 </select>
                 <span className="absolute left-4 top-1/2 -translate-y-1/2 text-cyan-400">🎓</span>
+              </div>
+
+              <div className="relative">
+                <input
+                  type="number"
+                  name="tenthMarks"
+                  placeholder="10th Class Marks (%)"
+                  value={formData.tenthMarks}
+                  onChange={handleChange}
+                  required
+                  className="w-full p-4 pl-12 rounded-xl border border-cyan-400/30 bg-white/80 dark:bg-gray-800/80 text-slate-900 dark:text-white focus:outline-none focus:border-cyan-400 transition"
+                />
+                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-cyan-400">📘</span>
+              </div>
+
+              <div className="relative">
+                <input
+                  type="number"
+                  name="interMarks"
+                  placeholder="Inter Marks (%)"
+                  value={formData.interMarks}
+                  onChange={handleChange}
+                  required
+                  className="w-full p-4 pl-12 rounded-xl border border-cyan-400/30 bg-white/80 dark:bg-gray-800/80 text-slate-900 dark:text-white focus:outline-none focus:border-cyan-400 transition"
+                />
+                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-cyan-400">📗</span>
               </div>
 
               <input

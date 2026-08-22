@@ -1,4 +1,4 @@
-import { useState, useEffect, useLayoutEffect } from 'react';
+import { useState, useEffect } from 'react';
 import AdminPanel from './components/AdminPanel';
 import Login from './components/Login';
 import { Routes, Route, Link, useNavigate, useLocation } from 'react-router-dom';
@@ -9,20 +9,15 @@ import Contact from './pages/Contact';
 import Admissions from './pages/Admissions';
 import Testimonials from './pages/Testimonials';
 import AptitudeLearning from './pages/AptitudeLearning';
+import About from './pages/About';
+import Team from './pages/Team';
 
 /* Scroll to top on every route change */
 function ScrollToTop() {
   const { pathname } = useLocation();
-
-  useLayoutEffect(() => {
-    if ('scrollRestoration' in window.history) {
-      window.history.scrollRestoration = 'manual';
-    }
-    window.scrollTo(0, 0);
-    document.documentElement.scrollTop = 0;
-    document.body.scrollTop = 0;
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
   }, [pathname]);
-
   return null;
 }
 
@@ -82,6 +77,8 @@ function App() {
           <div className="flex flex-wrap items-center gap-2 sm:gap-3">
             <div className="hidden md:flex gap-6 lg:gap-8">
               <Link to="/" className="text-slate-700 hover:text-cyan-500 dark:text-gray-300 dark:hover:text-cyan-300 transition">Home</Link>
+              <Link to="/about" className="text-slate-700 hover:text-cyan-500 dark:text-gray-300 dark:hover:text-cyan-300 transition">About Us</Link>
+              <Link to="/team" className="text-slate-700 hover:text-cyan-500 dark:text-gray-300 dark:hover:text-cyan-300 transition">Team</Link>
               <Link to="/courses" className="text-slate-700 hover:text-cyan-500 dark:text-gray-300 dark:hover:text-cyan-300 transition">Courses</Link>
               <Link to="/aptitude-learning" className="text-slate-700 hover:text-cyan-500 dark:text-gray-300 dark:hover:text-cyan-300 transition">Aptitude</Link>
               <Link to="/placements" className="text-slate-700 hover:text-cyan-500 dark:text-gray-300 dark:hover:text-cyan-300 transition">Placements</Link>
@@ -132,6 +129,8 @@ function App() {
           <div className="border-t border-slate-200/70 bg-white/95 px-4 py-4 dark:border-cyan-500/20 dark:bg-black/95 md:hidden">
             <div className="flex flex-col gap-3 text-sm font-medium">
               <Link to="/" className="text-slate-700 hover:text-cyan-500 dark:text-gray-300 dark:hover:text-cyan-300 transition">Home</Link>
+              <Link to="/about" className="text-slate-700 hover:text-cyan-500 dark:text-gray-300 dark:hover:text-cyan-300 transition">About Us</Link>
+              <Link to="/team" className="text-slate-700 hover:text-cyan-500 dark:text-gray-300 dark:hover:text-cyan-300 transition">Team</Link>
               <Link to="/courses" className="text-slate-700 hover:text-cyan-500 dark:text-gray-300 dark:hover:text-cyan-300 transition">Courses</Link>
               <Link to="/aptitude-learning" className="text-slate-700 hover:text-cyan-500 dark:text-gray-300 dark:hover:text-cyan-300 transition">Aptitude</Link>
               <Link to="/placements" className="text-slate-700 hover:text-cyan-500 dark:text-gray-300 dark:hover:text-cyan-300 transition">Placements</Link>
@@ -156,6 +155,8 @@ function App() {
       {/* ROUTES */}
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/team" element={<Team />} />
         <Route path="/courses" element={<Courses />} />
         <Route path="/placements" element={<Placements />} />
         <Route path="/aptitude-learning" element={<AptitudeLearning />} />

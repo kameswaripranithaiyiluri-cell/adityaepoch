@@ -1,0 +1,44 @@
+﻿query ServiceInfo {
+  project(id: "aadafbdb-412a-4b9d-8e98-f864521275f5") {
+    environments(first: 10) {
+      edges {
+        node {
+          name
+          serviceInstances(first: 10) {
+            edges {
+              node {
+                id
+                upstreamUrl
+                domains {
+                  serviceDomains {
+                    id
+                    domain
+                    suffix
+                    targetPort
+                  }
+                  customDomains {
+                    id
+                    domain
+                    syncStatus
+                  }
+                }
+                latestDeployment {
+                  id
+                  status
+                  url
+                  staticUrl
+                }
+                activeDeployments {
+                  id
+                  status
+                  url
+                  staticUrl
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

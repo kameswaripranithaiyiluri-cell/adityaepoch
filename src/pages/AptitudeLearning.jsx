@@ -1,6 +1,28 @@
 import { FaRocket, FaCode, FaBookOpen, FaHeadphones, FaStar, FaInfinity, FaGraduationCap, FaGlobe } from 'react-icons/fa';
+import { useState } from 'react';
+
+const platformLinks = {
+  aptitude: 'https://abhyas.ai/',
+  coding: 'https://abhyas.ai/lab/#/student',
+  vani: 'https://abhyas.ai/letstalk/#/student',
+  analysis: 'https://analysis.aditya.ac.in/v23/student/#/login',
+};
 
 export default function AptitudeLearning() {
+  const [selectedOffer, setSelectedOffer] = useState(null);
+  const offerDetails = {
+    'CRT Training From Day One': 'Students build placement habits from the first year through aptitude practice, communication drills, group discussions, and interview preparation.',
+    'Abhyas Aptitude Portal': 'Students can practice timed questions, review explanations, and use progress data to focus on their weakest aptitude areas.',
+    'Communication Development Skills': 'Listening, speaking, reading, and writing activities help students communicate clearly in classrooms, interviews, and workplaces.',
+    'Industry Ready Students': 'Projects, assessments, and career-focused mentoring connect classroom learning with the skills employers expect from graduates.',
+    'Library': 'Academic books, competitive-exam material, and digital resources support coursework, independent study, and long-term learning.',
+    'Mandatory Certificate Courses': 'Structured certificates give students evidence of practical skills alongside their academic qualification.',
+    'Group Decisions Training': 'Students practise collaboration, discussion, negotiation, and evidence-based decisions in realistic team situations.',
+    'Mock Interviews': 'Practice interviews provide feedback on answers, confidence, communication, and professional presentation before placement drives.',
+    'Internship Opportunities': 'Internships let students apply classroom knowledge, understand workplace expectations, and develop experience for their first role.',
+    'Global Industry Partnerships': 'Partner workshops and hiring activities expose students to current tools, professional expectations, and industry networks.',
+    'Placement Offices in Major Cities': 'Dedicated placement support helps students discover openings, prepare applications, and stay connected with employers in major cities.',
+  };
   return (
     <>
       {/* HERO SECTION */}
@@ -62,14 +84,12 @@ export default function AptitudeLearning() {
             </p>
           </div>
 
-          {/* Three Main Cards */}
-          <div className="grid md:grid-cols-3 gap-8 mb-16">
+          {/* Main Cards */}
+          <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-8 mb-16">
             {/* Abhyas Aptitude Portal */}
-            <div className="group relative bg-gradient-to-br from-gray-800/80 to-gray-900/80 backdrop-blur-sm p-8 rounded-3xl border border-cyan-500/20 hover:border-cyan-400/50 hover:-translate-y-3 transition-all duration-500 hover:shadow-2xl hover:shadow-cyan-400/20 overflow-hidden text-center">
-              {/* Glow overlay */}
+            <div className="group relative flex h-full flex-col bg-gradient-to-br from-gray-800/80 to-gray-900/80 backdrop-blur-sm p-8 rounded-3xl border border-cyan-500/20 hover:border-cyan-400/50 hover:-translate-y-3 transition-all duration-500 hover:shadow-2xl hover:shadow-cyan-400/20 overflow-hidden text-center">
               <div className="absolute -top-20 -right-20 w-40 h-40 bg-cyan-400/10 rounded-full blur-2xl group-hover:bg-cyan-400/20 transition-all duration-500" />
-              
-              <div className="relative z-10">
+              <div className="relative z-10 flex h-full flex-col">
                 <div className="w-16 h-16 mx-auto mb-6 p-3 rounded-2xl bg-gradient-to-br from-cyan-400/20 to-cyan-600/20 border border-cyan-400/30 group-hover:scale-110 transition-transform duration-300">
                   <FaBookOpen className="w-full h-full text-cyan-400" />
                 </div>
@@ -90,15 +110,21 @@ export default function AptitudeLearning() {
                     </span>
                   ))}
                 </div>
+                <a
+                  href={platformLinks.aptitude}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-auto pt-6 inline-block rounded-full bg-cyan-400 px-5 py-3 text-sm font-semibold text-slate-900 hover:bg-cyan-300 transition"
+                >
+                  Open Aptitude Portal
+                </a>
               </div>
             </div>
 
             {/* Abhyas Coding */}
-            <div className="group relative bg-gradient-to-br from-gray-800/80 to-gray-900/80 backdrop-blur-sm p-8 rounded-3xl border border-purple-500/20 hover:border-purple-400/50 hover:-translate-y-3 transition-all duration-500 hover:shadow-2xl hover:shadow-purple-400/20 overflow-hidden text-center">
-              {/* Glow overlay */}
+            <div className="group relative flex h-full flex-col bg-gradient-to-br from-gray-800/80 to-gray-900/80 backdrop-blur-sm p-8 rounded-3xl border border-purple-500/20 hover:border-purple-400/50 hover:-translate-y-3 transition-all duration-500 hover:shadow-2xl hover:shadow-purple-400/20 overflow-hidden text-center">
               <div className="absolute -top-20 -right-20 w-40 h-40 bg-purple-400/10 rounded-full blur-2xl group-hover:bg-purple-400/20 transition-all duration-500" />
-              
-              <div className="relative z-10">
+              <div className="relative z-10 flex h-full flex-col">
                 <div className="w-16 h-16 mx-auto mb-6 p-3 rounded-2xl bg-gradient-to-br from-purple-400/20 to-purple-600/20 border border-purple-400/30 group-hover:scale-110 transition-transform duration-300">
                   <FaCode className="w-full h-full text-purple-400" />
                 </div>
@@ -119,15 +145,21 @@ export default function AptitudeLearning() {
                     </span>
                   ))}
                 </div>
+                <a
+                  href={platformLinks.coding}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-auto pt-6 inline-block rounded-full bg-purple-400 px-5 py-3 text-sm font-semibold text-slate-900 hover:bg-purple-300 transition"
+                >
+                  Open Coding Portal
+                </a>
               </div>
             </div>
 
             {/* Abhyas Vani */}
-            <div className="group relative bg-gradient-to-br from-gray-800/80 to-gray-900/80 backdrop-blur-sm p-8 rounded-3xl border border-pink-500/20 hover:border-pink-400/50 hover:-translate-y-3 transition-all duration-500 hover:shadow-2xl hover:shadow-pink-400/20 overflow-hidden text-center">
-              {/* Glow overlay */}
+            <div className="group relative flex h-full flex-col bg-gradient-to-br from-gray-800/80 to-gray-900/80 backdrop-blur-sm p-8 rounded-3xl border border-pink-500/20 hover:border-pink-400/50 hover:-translate-y-3 transition-all duration-500 hover:shadow-2xl hover:shadow-pink-400/20 overflow-hidden text-center">
               <div className="absolute -top-20 -right-20 w-40 h-40 bg-pink-400/10 rounded-full blur-2xl group-hover:bg-pink-400/20 transition-all duration-500" />
-              
-              <div className="relative z-10">
+              <div className="relative z-10 flex h-full flex-col">
                 <div className="w-16 h-16 mx-auto mb-6 p-3 rounded-2xl bg-gradient-to-br from-pink-400/20 to-pink-600/20 border border-pink-400/30 group-hover:scale-110 transition-transform duration-300">
                   <FaHeadphones className="w-full h-full text-pink-400" />
                 </div>
@@ -148,6 +180,49 @@ export default function AptitudeLearning() {
                     </span>
                   ))}
                 </div>
+                <a
+                  href={platformLinks.vani}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-auto pt-6 inline-block rounded-full bg-pink-400 px-5 py-3 text-sm font-semibold text-slate-900 hover:bg-pink-300 transition"
+                >
+                  Open Vani Portal
+                </a>
+              </div>
+            </div>
+
+            {/* Student Analysis */}
+            <div className="group relative flex h-full flex-col bg-gradient-to-br from-gray-800/80 to-gray-900/80 backdrop-blur-sm p-8 rounded-3xl border border-emerald-500/20 hover:border-emerald-400/50 hover:-translate-y-3 transition-all duration-500 hover:shadow-2xl hover:shadow-emerald-400/20 overflow-hidden text-center">
+              <div className="absolute -top-20 -right-20 w-40 h-40 bg-emerald-400/10 rounded-full blur-2xl group-hover:bg-emerald-400/20 transition-all duration-500" />
+              <div className="relative z-10 flex h-full flex-col">
+                <div className="w-16 h-16 mx-auto mb-6 p-3 rounded-2xl bg-gradient-to-br from-emerald-400/20 to-emerald-600/20 border border-emerald-400/30 group-hover:scale-110 transition-transform duration-300">
+                  <FaGlobe className="w-full h-full text-emerald-400" />
+                </div>
+                <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-emerald-300 transition-colors">
+                  Student Analysis
+                </h3>
+                <div className="flex items-center justify-center gap-2 mb-4">
+                  <FaGraduationCap className="text-emerald-400 text-sm" />
+                  <span className="text-emerald-400 font-bold text-2xl">Insights</span>
+                </div>
+                <p className="text-gray-400 leading-relaxed mb-6">
+                  Personalized student performance and assessment insights to support learning progress, academic planning, and career readiness with data-driven reports.
+                </p>
+                <div className="flex flex-wrap justify-center gap-2">
+                  {['Performance', 'Analytics', 'Reports', 'Planning'].map((tag) => (
+                    <span key={tag} className="px-3 py-1 bg-emerald-400/10 border border-emerald-400/20 text-emerald-300 text-xs rounded-full">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+                <a
+                  href={platformLinks.analysis}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-auto pt-6 inline-block rounded-full bg-emerald-400 px-5 py-3 text-sm font-semibold text-slate-900 hover:bg-emerald-300 transition"
+                >
+                  Open Analysis Portal
+                </a>
               </div>
             </div>
           </div>
@@ -212,8 +287,10 @@ export default function AptitudeLearning() {
               { title: 'Global Industry Partnerships', icon: '🌍', desc: 'Collaborations with leading global companies for training, workshops, and campus hiring drives.' },
               { title: 'Placement Offices in Major Cities', icon: '🏢', desc: 'Dedicated placement offices in key cities providing local support and job opportunities for students.' },
             ].map((item, i) => (
-              <div
+              <button
                 key={i}
+                type="button"
+                onClick={() => setSelectedOffer(item)}
                 className="group bg-white dark:bg-gray-950 p-8 rounded-3xl border border-slate-200/60 dark:border-cyan-500/20 text-center hover:-translate-y-3 hover:shadow-xl hover:shadow-cyan-400/10 transition-all duration-300"
               >
                 <div className="w-16 h-16 mx-auto mb-6 p-3 rounded-2xl bg-cyan-50 dark:bg-gray-900 group-hover:scale-110 transition-transform">
@@ -221,9 +298,22 @@ export default function AptitudeLearning() {
                 </div>
                 <h3 className="text-xl font-bold mb-3 group-hover:text-cyan-400 transition-colors">{item.title}</h3>
                 <p className="text-slate-500 dark:text-gray-400 leading-relaxed">{item.desc}</p>
-              </div>
+              </button>
             ))}
           </div>
+
+          {selectedOffer && (
+            <div className="mt-8 rounded-2xl border border-cyan-400/30 bg-white dark:bg-gray-950 p-6 text-left shadow-xl" role="region" aria-live="polite">
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <p className="text-xs uppercase tracking-widest text-cyan-500 mb-2">Offer details</p>
+                  <h3 className="text-2xl font-bold">{selectedOffer.title}</h3>
+                  <p className="mt-3 text-slate-600 dark:text-gray-300 leading-relaxed">{offerDetails[selectedOffer.title] || selectedOffer.desc}</p>
+                </div>
+                <button type="button" onClick={() => setSelectedOffer(null)} className="text-slate-400 hover:text-slate-900 dark:hover:text-white" aria-label="Close offer details">✕</button>
+              </div>
+            </div>
+          )}
         </div>
       </section>
 

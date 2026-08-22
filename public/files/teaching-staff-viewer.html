@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Teaching Staff - Viewer</title>
+    <style>
+      body{font-family:Inter,system-ui,Arial,Helvetica,sans-serif;margin:24px;color:#0f172a}
+      h1{color:#0ea5a4}
+      table{border-collapse:collapse;width:100%;margin-top:12px}
+      th,td{border:1px solid #e2e8f0;padding:8px;text-align:left}
+      th{background:#f8fafc}
+      .center{max-width:1100px;margin:0 auto}
+    </style>
+  </head>
+  <body>
+    <div class="center">
+      <h1>Teaching Staff</h1>
+      <p>This page shows only photo, name and designation from the uploaded spreadsheet.</p>
+      <div id="message">Loading...</div>
+      <div id="cards" class="cards"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+    <script>
+      // Prevent right-click context menu (helps avoid easy save/copy in-browser)
+      document.addEventListener('contextmenu', (e) => e.preventDefault());
+
+      async function loadAndRender() {
+        const url = '/files/teaching-staff.xlsx';
+        try {
+          const res = await fetch(url);
+          if (!res.ok) throw new Error('Failed to fetch spreadsheet');
+          const ab = await res.arrayBuffer();
+          const data = new Uint8Array(ab);
+          const workbook = XLSX.read(data, { type: 'array' });
+          const firstSheetName = workbook.SheetNames[0];
+          const sheet = workbook.Sheets[firstSheetName];
+          const rows = XLSX.utils.sheet_to_json(sheet, { defval: '' });
+
+          // Heuristics for column names
+          const photoKeys = [/photo/i, /image/i, /img/i, /picture/i];
+          const nameKeys = [/name/i, /full name/i];
+          const designationKeys = [/designation/i, /role/i, /position/i, /post/i, /title/i];
+
+          function findKey(headers, patterns) {
+            for (const p of patterns) {
+              const key = headers.find(h => p.test(h));
+              if (key) return key;
+            }
+            return null;
+          }
+
+          const headers = Object.keys(rows[0] || {});
+          const photoKey = findKey(headers, photoKeys);
+          const nameKey = findKey(headers, nameKeys) || headers[0] || null;
+          const designationKey = findKey(headers, designationKeys) || headers.find(h => h !== nameKey) || null;
+
+          const cards = document.getElementById('cards');
+          cards.innerHTML = '';
+
+          rows.forEach((r) => {
+            const name = nameKey ? (r[nameKey] || '').toString().trim() : '';
+            const designation = designationKey ? (r[designationKey] || '').toString().trim() : '';
+            let photo = photoKey ? (r[photoKey] || '').toString().trim() : '';
+
+            // If photo is a local filename, map to /images/<filename>
+            if (photo && !/^https?:\/\//i.test(photo)) {
+              // try with or without path
+              photo = '/images/' + photo.replace(/^\.\//, '').replace(/^\//, '');
+            }
+
+            // Only render entries that have at least a name or photo
+            if (!name && !photo) return;
+
+            const card = document.createElement('div');
+            card.className = 'card';
+
+            if (photo) {
+              const img = document.createElement('img');
+              img.src = photo;
+              img.alt = name || 'Staff photo';
+              img.onerror = () => { img.style.display = 'none'; };
+              card.appendChild(img);
+            }
+
+            const info = document.createElement('div');
+            info.className = 'info';
+            const n = document.createElement('div');
+            n.className = 'name';
+            n.textContent = name || '';
+            const d = document.createElement('div');
+            d.className = 'designation';
+            d.textContent = designation || '';
+            info.appendChild(n);
+            info.appendChild(d);
+            card.appendChild(info);
+
+            cards.appendChild(card);
+          });
+
+          document.getElementById('message').style.display = 'none';
+        } catch (err) {
+          document.getElementById('message').textContent = 'Error loading spreadsheet: ' + err.message;
+        }
+      }
+      loadAndRender();
+    </script>
+  </body>
+</html>

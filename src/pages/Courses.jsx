@@ -1,7 +1,8 @@
 import { FaBriefcase, FaChartLine, FaLaptopCode, FaCalculator, FaFileInvoiceDollar, FaBullhorn, FaUserTie, FaChartBar, FaUsers, FaLightbulb, FaShoppingCart, FaRocket, FaDatabase, FaShieldAlt, FaLaptopHouse, FaArrowRight } from 'react-icons/fa';
+import { useState } from 'react';
 
 const careerRoles = [
-  { title: 'Financial Analysts', icon: FaChartLine, color: '#06D6A0', desc: 'Analyze financial data to guide business decisions and investment strategies.' },
+  { title: 'Financial Analysts', icon: FaChartLine, color: '#06D6A0', desc: 'Analyze financial data to guide business decisions and investment strategies.', details: 'Build forecasts, evaluate investments, explain performance trends, and help organizations make confident financial decisions.' },
   { title: 'Management Accountant', icon: FaCalculator, color: '#118AB2', desc: 'Prepare financial reports and manage internal accounting processes.' },
   { title: 'Software Developers', icon: FaLaptopCode, color: '#EF476F', desc: 'Design, build, and maintain software applications across platforms.' },
   { title: 'Auditors & Assurance', icon: FaFileInvoiceDollar, color: '#FFD166', desc: 'Examine financial records to ensure accuracy and regulatory compliance.' },
@@ -19,6 +20,7 @@ const careerRoles = [
 ];
 
 export default function Courses() {
+  const [selectedRole, setSelectedRole] = useState(null);
   const handleScrollToDetails = () => {
     const detailsSection = document.getElementById('course-details');
     if (detailsSection) {
@@ -77,7 +79,7 @@ export default function Courses() {
                 name: 'BCA', 
                 desc: 'Bachelor of Computer Applications', 
                 specs: ['General', 'Data Science'],
-                fullDesc: 'Specialized computing program designed to develop expert software developers and IT professionals for the modern digital industry.',
+                fullDesc: 'Specialized computing program designed to develop expert software developers, software engineers, and project-ready IT professionals.',
               },
               { 
                 name: 'B.Com', 
@@ -88,7 +90,7 @@ export default function Courses() {
               { 
                 name: 'BBA', 
                 desc: 'Bachelor of Business Administration',
-                specs: ['Honours', 'Digital Marketing', 'Business Analytics'],
+                specs: ['Digital Marketing', 'Business Analytics'],
                 fullDesc: 'Comprehensive business program equipping students with leadership and management skills for success in corporate and entrepreneurial ventures.',
               },
             ].map((course, i) => (
@@ -148,8 +150,10 @@ export default function Courses() {
           {/* Career Roles Grid */}
           <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-5">
             {careerRoles.map((role, i) => (
-              <div
+              <button
                 key={i}
+                type="button"
+                onClick={() => setSelectedRole(role)}
                 className="group relative bg-gradient-to-br from-gray-800/60 to-gray-900/60 backdrop-blur-sm p-6 rounded-2xl border border-gray-700/40 hover:border-cyan-400/40 hover:-translate-y-2 transition-all duration-400 hover:shadow-xl hover:shadow-cyan-400/10 overflow-hidden"
               >
                 {/* Hover glow */}
@@ -188,9 +192,22 @@ export default function Courses() {
                 <p className="text-gray-500 text-xs leading-relaxed group-hover:text-gray-300 transition-colors duration-300">
                   {role.desc}
                 </p>
-              </div>
+              </button>
             ))}
           </div>
+
+          {selectedRole && (
+            <div className="mt-8 rounded-2xl border border-cyan-400/30 bg-gray-900/90 p-6 text-left shadow-xl" role="region" aria-live="polite">
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <p className="text-xs uppercase tracking-widest text-cyan-300 mb-2">Career path details</p>
+                  <h3 className="text-2xl font-bold text-white">{selectedRole.title}</h3>
+                  <p className="mt-3 text-gray-300 leading-relaxed">{selectedRole.details || selectedRole.desc}</p>
+                </div>
+                <button type="button" onClick={() => setSelectedRole(null)} className="text-gray-400 hover:text-white" aria-label="Close career details">✕</button>
+              </div>
+            </div>
+          )}
 
           {/* Bottom Banner */}
           <div className="mt-16 text-center">

@@ -1,6 +1,5 @@
 import { useState } from 'react';
-
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000';
+import { getApiUrl } from '../lib/api';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -27,7 +26,7 @@ export default function Contact() {
     setError('');
 
     try {
-      const response = await fetch(`${BACKEND_URL}/api/contact`, {
+      const response = await fetch(getApiUrl('/api/contact'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
@@ -136,8 +135,7 @@ export default function Contact() {
                 <h3 className="text-2xl font-bold text-purple-400">Email</h3>
               </div>
               <p className="text-slate-700 dark:text-gray-300 pl-20">
-                <a href="mailto:info@adityacollege.edu.in" className="hover:text-cyan-400 block">info@adityacollege.edu.in</a>
-                <a href="mailto:admissions@adityacollege.edu.in" className="hover:text-cyan-400 block">admissions@adityacollege.edu.in</a>
+                <a href="mailto:adcrjy@aditya.adc.in" className="hover:text-cyan-400 block">adcrjy@aditya.adc.in</a>
               </p>
             </div>
           </div>

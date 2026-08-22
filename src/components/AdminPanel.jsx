@@ -1,14 +1,10 @@
 import { useEffect, useState } from 'react';
-import { io } from 'socket.io-client';
+import { getApiUrl } from '../lib/api';
 
-// Socket.io client connecting to admin namespace
-const socket = io(import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000');
-
-// Admission table columns
-const admissionColumns = ['fullName', 'email', 'phone', 'dob', 'course', 'qualification', 'address', 'city', 'state'];
+const admissionColumns = ['fullName', 'email', 'phone', 'dob', 'course', 'qualification', 'tenthMarks', 'interMarks', 'address', 'city', 'state'];
 const admissionLabels = {
   fullName: 'Full Name', email: 'Email', phone: 'Phone', dob: 'DOB',
-  course: 'Course', qualification: 'Qualification', address: 'Address', city: 'City', state: 'State'
+  course: 'Course', qualification: 'Qualification', tenthMarks: '10th Marks', interMarks: 'Inter Marks', address: 'Address', city: 'City', state: 'State'
 };
 
 // Contact table columns
@@ -59,12 +55,22 @@ function TableView({ title, data, columns, labels, icon }) {
 export default function AdminPanel({ authToken, onLogout }) {
   const [submissions, setSubmissions] = useState([]);
   const [activeTab, setActiveTab] = useState('all');
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     const token = authToken || localStorage.getItem('auth_token');
-    if (!token) return;
+    if (!token) {
+      setLoading(false);
+      setError('Your admin session has expired. Please sign in again.');
+      return;
+    }
 
-    fetch(`${import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000'}/api/admin/submissions`, {
+    const adminSubmissionsUrl = getApiUrl('/api/admin/submissions');
+
+    setLoading(true);
+    setError('');
+    fetch(adminSubmissionsUrl, {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -73,20 +79,18 @@ export default function AdminPanel({ authToken, onLogout }) {
         if (res.status === 401 || res.status === 403) {
           throw new Error('Access denied');
         }
+        if (!res.ok) throw new Error(`Request failed (${res.status})`);
         return res.json();
       })
       .then(data => {
         setSubmissions(data.submissions || []);
+        setError('');
       })
-      .catch(console.error);
-
-    socket.on('newSubmission', (submission) => {
-      setSubmissions(prev => [submission, ...prev]);
-    });
-
-    return () => {
-      socket.off('newSubmission');
-    };
+      .catch(err => {
+        console.error('Admin submissions error:', err);
+        setError(`${err.message}. Start the backend server and refresh this page.`);
+      })
+      .finally(() => setLoading(false));
   }, [authToken]);
 
   const admissionSubmissions = submissions.filter(s => s.type === 'admission');
@@ -99,6 +103,7 @@ export default function AdminPanel({ authToken, onLogout }) {
         <h1 className="text-2xl font-bold">Admin Dashboard</h1>
         <div className="flex gap-4 items-center">
           <span className="text-sm text-gray-400">Logged in as admin</span>
+          <button onClick={() => window.location.reload()} className="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg text-sm font-bold transition">Refresh</button>
           <button
             onClick={onLogout}
             className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg text-sm font-bold transition"
@@ -142,7 +147,9 @@ export default function AdminPanel({ authToken, onLogout }) {
       </div>
 
       {/* Tables */}
-      {submissions.length === 0 && <p className="text-gray-400 text-center py-10">No submissions yet.</p>}
+      {loading && <p className="text-gray-400 text-center py-10">Loading submissions...</p>}
+      {!loading && error && <p className="text-red-300 text-center py-10">{error}</p>}
+      {!loading && !error && submissions.length === 0 && <p className="text-gray-400 text-center py-10">No submissions yet.</p>}
 
       {(activeTab === 'all' || activeTab === 'admission') && (
         <TableView
